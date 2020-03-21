@@ -1,4 +1,5 @@
 final int RSN = 20;
+String insertString = "010,001,111";
 int cols;
 int rows;
 boolean[][] grid;
@@ -8,6 +9,7 @@ boolean running;
 boolean torusMode;
 int fps;
 boolean lowFrame;
+boolean insertMode;
 
 /* Generate a grid of random boolean values. */
 boolean[][] randomGrid(boolean[][] grid) {    
@@ -72,6 +74,18 @@ boolean[][] nextGen(boolean[][] grid) {
     return nextTemp;
 }
 
+/* Decode a string of 0s and 1s (del by ,) into a shape to be added
+ * to the specified x and y coordinates. Using main static grid. */
+void addShapeToGrid(String shape, int x, int y) {
+    String[] shapeRows = shape.split(",");
+    for (int i = 0; i < shapeRows.length; i++) {
+        for (int j = 0; j < shapeRows[0].length(); j++) {
+            if (shapeRows[i].charAt(j) == '1') grid[j + x][i + y] = true;
+            if (shapeRows[i].charAt(j) == '0') grid[j + x][i + y] = false;
+        }
+    }
+}
+
 void setup() {
     size(1400, 900);
     fps = 24;
@@ -82,6 +96,7 @@ void setup() {
     next = new boolean[cols][rows];
     running = false;
     torusMode = false;
+    insertMode = false;
     textSize(20);
 }
 
@@ -128,30 +143,47 @@ void draw() {
         text("Paused", 26, 42);
         pop();
     } 
+    
+    if (insertMode) {
+       push();
+        fill(190, 130, 25);
+        text("Insert", 26, 65);
+        pop(); 
+    }
+    
 }
 
 void keyPressed() {
-    if (keyCode == ENTER) {
+    if (keyCode == ENTER || key == ' ' || key == 'p') {
         running = !running;
     }
-    if (key == 'r' || key == 'R') {
+    if (key == 'r') {
         grid = randomGrid(grid);
     }
-    if (key == 'c' || key == 'C') {
+    if (key == 'c') {
         grid = emptyGrid(grid);
     }
-    if (key == 't' || key == 'T') {
+    if (key == 't') {
         torusMode = !torusMode;
     }
-    if (key == 'f' || key == 'F') {
+    if (key == 'f') {
         lowFrame = !lowFrame;
+    }
+    if (key == 'i') {
+        insertMode = !insertMode;
     }
 }
 
 void mousePressed() {
     int mx = mouseX / RSN;
     int my = mouseY / RSN;
-    if (mouseButton == LEFT) grid[mx][my] = true;
+    if (mouseButton == LEFT) {
+        if (insertMode) {
+            addShapeToGrid(insertString, mx, my);
+        } else {
+            grid[mx][my] = true;
+        }
+    }
     else if (mouseButton == RIGHT) grid[mx][my] = false;
 }
 
