@@ -9,12 +9,20 @@ int fps;
 boolean lowFrame;
 
 /* Generate a grid of random boolean values. */
-boolean[][] randomGrid(int cols, int rows) {
-    boolean[][] grid = new boolean[cols][rows];
-    
+boolean[][] randomGrid(boolean[][] grid) {    
     for (int i = 0; i < cols; i++) {
         for (int j = 0; j < rows; j++) {
             grid[i][j] = Math.random() < 0.5;
+        }
+    }
+    return grid;
+}
+
+/* Empty the given grid (set all values to false). */
+boolean[][] emptyGrid(boolean[][] grid) {
+    for (int i = 0; i < grid.length; i++) {
+        for (int j = 0; j < grid[0].length; j++) {
+            grid[i][j] = false;
         }
     }
     return grid;
@@ -124,10 +132,10 @@ void keyPressed() {
         running = !running;
     }
     if (key == 'r' || key == 'R') {
-        grid = randomGrid(cols, rows);
+        grid = randomGrid(grid);
     }
     if (key == 'c' || key == 'C') {
-        grid = new boolean[cols][rows];
+        grid = emptyGrid(grid);
     }
     if (key == 't' || key == 'T') {
         torusMode = !torusMode;
