@@ -2,6 +2,7 @@ final int RSN = 20;
 int cols;
 int rows;
 boolean[][] grid;
+boolean[][] next;
 int x, y;
 boolean running;
 boolean torusMode;
@@ -44,7 +45,8 @@ int countNeighbors(boolean[][] grid, int x, int y) {
 
 /* Generate the next grid of life. */
 boolean[][] nextGen(boolean[][] grid) {
-    boolean[][] next = new boolean[cols][rows];
+    // TODO (possibly): re-use instead of creating a new array here
+    boolean[][] nextTemp = new boolean[cols][rows];
     int iStart = 1;
     int iEnd = cols-1;
     int jStart = 1;
@@ -62,12 +64,12 @@ boolean[][] nextGen(boolean[][] grid) {
             int neighbors = countNeighbors(grid, i, j);
             boolean state = grid[i][j];
             
-            if (!state && neighbors == 3) next[i][j] = true;
-            else if (state && (neighbors < 2 || neighbors > 3)) next[i][j] = false;
-            else next[i][j] = state;
+            if (!state && neighbors == 3) nextTemp[i][j] = true;
+            else if (state && (neighbors < 2 || neighbors > 3)) nextTemp[i][j] = false;
+            else nextTemp[i][j] = state;
         }
     }
-    return next;
+    return nextTemp;
 }
 
 void setup() {
@@ -77,6 +79,7 @@ void setup() {
     cols = width / RSN;
     rows = height / RSN;
     grid = new boolean[cols][rows];
+    next = new boolean[cols][rows];
     running = false;
     torusMode = false;
     textSize(20);
@@ -117,7 +120,7 @@ void draw() {
     
     if (running) {
         /* Next generation */
-        boolean[][] next = nextGen(grid);
+        next = nextGen(grid);
         grid = next;
     } else {
         push();
