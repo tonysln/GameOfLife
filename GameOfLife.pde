@@ -78,10 +78,14 @@ boolean[][] nextGen(boolean[][] grid) {
  * to the specified x and y coordinates. Using main static grid. */
 void addShapeToGrid(String shape, int x, int y) {
     String[] shapeRows = shape.split(",");
-    for (int i = 0; i < shapeRows.length; i++) {
-        for (int j = 0; j < shapeRows[0].length(); j++) {
-            if (shapeRows[i].charAt(j) == '1') grid[j + x][i + y] = true;
-            if (shapeRows[i].charAt(j) == '0') grid[j + x][i + y] = false;
+
+    /* Check if the shape is going to fit on the grid, else do not draw it. */
+    if ((shapeRows[0].length()+x < cols) && (shapeRows.length+y < rows)) {
+        for (int i = 0; i < shapeRows.length; i++) {
+            for (int j = 0; j < shapeRows[0].length(); j++) {
+                if (shapeRows[i].charAt(j) == '1') grid[j + x][i + y] = true;
+                if (shapeRows[i].charAt(j) == '0') grid[j + x][i + y] = false;
+            }
         }
     }
 }
@@ -121,7 +125,7 @@ void draw() {
     for (int i = iStart; i < iEnd; i++) {
         for (int j = jStart; j < jEnd; j++) {
             x = i * RSN;
-            y = j * RSN;
+            y = j * RSN;     
             if (grid[i][j]) {
                 stroke(120);
                 fill(20, 20, 50);
@@ -129,7 +133,15 @@ void draw() {
                 stroke(190);
                 fill(255);
             } 
-            rect(x, y, RSN, RSN);
+            rect(x, y, RSN, RSN);         
+            //if ((mouseX > x && mouseX <= x+RSN) && (mouseY > y && mouseY <= y+RSN)) {
+            //    push();
+            //    stroke(190);
+            //    fill(200);
+            //    rect(x, y, RSN, RSN);
+            //    pop();
+            //}
+               
         }
     }
     
@@ -145,11 +157,12 @@ void draw() {
     } 
     
     if (insertMode) {
-       push();
+        push();
         fill(190, 130, 25);
         text("Insert", 26, 65);
-        pop(); 
+        pop();
     }
+
     
 }
 
