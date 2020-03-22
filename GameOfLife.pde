@@ -133,14 +133,16 @@ void draw() {
                 stroke(190);
                 fill(255);
             } 
-            rect(x, y, RSN, RSN);         
-            //if ((mouseX > x && mouseX <= x+RSN) && (mouseY > y && mouseY <= y+RSN)) {
-            //    push();
-            //    stroke(190);
-            //    fill(200);
-            //    rect(x, y, RSN, RSN);
-            //    pop();
-            //}
+            rect(x, y, RSN, RSN);   
+            // Probably temporary
+            // TODO: Hover shadow for shape in insert mode
+            if ((mouseX > x && mouseX <= x+RSN) && (mouseY > y && mouseY <= y+RSN)) {
+                push();
+                stroke(190);
+                fill(210);
+                rect(x, y, RSN, RSN);
+                pop();
+            }
                
         }
     }
@@ -184,7 +186,7 @@ void keyPressed() {
     if (key == 'i') {
         insertMode = !insertMode;
     }
-    if (key == 'n' && !running) {  
+    if (key == 'g' && !running) {  
         noLoop();
         running = true;
         draw();
