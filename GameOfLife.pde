@@ -91,7 +91,7 @@ void addShapeToGrid(String shape, int x, int y) {
 }
 
 void setup() {
-    size(1400, 900);
+    size(1000, 600);
     fps = 24;
     frameRate(fps);
     cols = width / RSN;
@@ -162,7 +162,6 @@ void draw() {
         text("Insert", 26, 65);
         pop();
     }
-
     
 }
 
@@ -184,6 +183,13 @@ void keyPressed() {
     }
     if (key == 'i') {
         insertMode = !insertMode;
+    }
+    if (key == 'n' && !running) {  
+        noLoop();
+        running = true;
+        draw();
+        running = false;
+        loop();
     }
 }
 

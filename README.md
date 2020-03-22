@@ -13,6 +13,7 @@ New controls:
 - **R** to randomly fill up the grid
 - **C** to clear the grid
 - **F** to toggle low-fps mode (24 fps vs 4 fps)
+- **N** to simulate life frame-by-frame (works only while paused)
 - **I** to toggle 'insert' mode
 
 Insert mode - add a predefined shape onto the grid **at the current mouse location**. The shape is defined as a string in the form of 0s and 1s delimited by a comma (all rows must be of equal length). The default shape ```010,001,111``` is representing the classic glider, for example. Currently, there is no way to input the shape other than to modify ```insertString``` on line 2.
