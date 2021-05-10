@@ -4,7 +4,9 @@ Initially based on [Coding Challenge #85: The Game of Life](https://www.youtube.
 
 Ported to Processing (Java). Uses arrays of booleans for less memory usage.
 
-New controls:
+[Demo on YouTube](https://www.youtube.com/watch?v=Oz4Q70smZSs)
+
+## Controls
 
 - **ENTER** (or **SPACE** or **P**) to pause/unpause life
 - **LMB** for drawing cells
@@ -22,7 +24,7 @@ Drawing can also be done by pressing and dragging the mouse, but abusing this ca
 
 Sometimes all keyboard input is ignored right after launching the applet, which can be fixed by clicking anywhere in the window.
 
-To-do:
+## To-Do
 
 - Input grid resolution and size (currently can be manually adjusted on line 1 and in ```setup()```.
 - Input shape for insert mode.
